@@ -1,0 +1,40 @@
+<br><br><img src="/Engine.jpg"Engine" style="width:280px; height:210px">
+<div id=blogcontainer>
+Blog container<br>
+<p id="smalltext">
+Lorem ipsum dolor sit amet, nisl nisl integer. 
+Pede elit, augue odio, in pellentesque pulvinar.
+Feugiat vel, vitae massa sed. Donec in, facilisis 
+luctus habitasse, rhoncus curabitur. Volutpat gravida,
+porttitor tellus. Praesent purus felis.
+<p>
+</div>
+
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<h1>Customer Stuff</h1>
+<table>
+<tr>
+<% @customers.each do |customer| %>
+   <td><%= customer.id %> <%= customer.customerName %></td>
+   <td><%= customer.contactFirstName %> <%= customer.contactLastName %><br></td>
+   <td><%= customer.addressLine1 %>, <%= customer.addressLine2 %><br></td>
+   <td><%= customer.city %>, <%= customer.state %> <%= customer.postalCode %><br></td>
+   <td><%= customer.country %></td>
+</tr><% end %>
+</table>
+
+<h1>Products</h1>
+<table>
+<tr>
+<% @products.each do |product| %>
+   <td><%= product.productName %> <%= product.productLine %></td>
+   <td><%= product.productScale %> <%= product.productVendor %><br></td>
+   <td><%= product.productDescription %>, <%= product.quantityInStock %><br></td>
+   <td><%= product.buyPrice %>, <%= product.MSRP %><br></td>
+</tr><% end %>
+ </table>
+ 

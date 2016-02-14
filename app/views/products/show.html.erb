@@ -1,0 +1,10 @@
+<h1>Item Description</h1>
+
+<%= params[:id] %>
+<% @products.each do |product| %>
+<% if product.productCode == params[:id] %>
+Item Code:        <%= product.productCode  %><br />
+Item:             <%= product.productName  %><br />
+Description:      <%= product.productDescription %><br>
+Price:     $      <%= product.buyPrice %><br /><br>
+<% end %><% end %>
