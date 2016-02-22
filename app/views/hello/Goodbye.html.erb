@@ -1,40 +1,81 @@
-<br><br><img src="/Engine.jpg"Engine" style="width:280px; height:210px">
-<div id=blogcontainer>
-Blog container<br>
-<p id="smalltext">
-Lorem ipsum dolor sit amet, nisl nisl integer. 
-Pede elit, augue odio, in pellentesque pulvinar.
-Feugiat vel, vitae massa sed. Donec in, facilisis 
-luctus habitasse, rhoncus curabitur. Volutpat gravida,
-porttitor tellus. Praesent purus felis.
-<p>
+<!-- Main Container -->    
+    <div class="grid_9" style="background-color:#CCC; height:300px; margin-top:10px"></div>
+
+<!-- Blog container on main page -->
+    <div class="grid_3" style="background-color:#CCC; height:410px; margin-top:10px; float:right; position:relative">
+      	<div id="socialmedia" style="position:absolute; bottom:0; margin:0 0 10 40">
+          <!-- Share Buttons credit: simplesharebuttons.com -->
+          <!-- Email -->
+          <a href="mailto:?Subject=Lugnuts Automotive&amp;Body=https://schoolapp-cheezit65.c9users.io/hello/Goodbye####">
+            <img src="../email.png" alt="Email" />
+          </a>
+          <!-- Facebook -->
+          <a href="http://www.facebook.com/sharer.php?u=https://schoolapp-cheezit65.c9users.io/hello/Goodbye####" target="_blank">
+            <img src="../facebook.png" alt="Facebook" />
+          </a>
+          <!-- Twitter -->
+          <a href="https://twitter.com/share?url=https://schoolapp-cheezit65.c9users.io/hello/Goodbye####" target="_blank">
+            <img src="../twitter.png" alt="Twitter" />
+          </a>
+        </div>
+    </div>
+    
+
+<!-- Old News Containers -->
+  	<div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px">
+    </div>
+    
+    <div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px">
+    </div>
+    
+    <div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px">
+    </div>
+
+
+  
+<!-- Specials and Other Info -->
+  	<div class="grid_4" style="background-color:#CCC; height:100px; margin-top:20px"></div>
+    <div class="grid_4" style="background-color:#CCC; height:100px; margin-top:20px"></div>
+    <div class="grid_4" style="background-color:#CCC; height:100px; margin-top:20px"></div>
+    <div class="clear"></div>
+    
+    
+<!-- Loaction and Direction -->
+    <div class="grid_4" style="height:100px; margin-top:20px"></div>
+    <div class="grid_4" style="height:100px; margin-top:20px">
+      <table style="margin:0 auto 0 auto">
+      <tr> 
+      <td style="text-align:center">Store Location:</td>
+      <td style="text-align:center"> 123 Fake St</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td style="text-align:center"> Columbus, Ohio 43210 </td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+        <td style="text-align:center">Hours: </td>
+        <td style="text-align:center">M-F: 9-7</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td style="text-align:center">Sat: 10-6</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td style="text-align:center">Sun: 12-5</td>
+      </tr>
+      
+      </table>
+      
+      
+    </div>
+    <div class="grid_4" style="height:100px; margin-top:20px"></div>
+    <div class="clear"></div>
+  
+  
+<!-- End of 960 grid -->  
 </div>
-
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<h1>Customer Stuff</h1>
-<table>
-<tr>
-<% @customers.each do |customer| %>
-   <td><%= customer.id %> <%= customer.customerName %></td>
-   <td><%= customer.contactFirstName %> <%= customer.contactLastName %><br></td>
-   <td><%= customer.addressLine1 %>, <%= customer.addressLine2 %><br></td>
-   <td><%= customer.city %>, <%= customer.state %> <%= customer.postalCode %><br></td>
-   <td><%= customer.country %></td>
-</tr><% end %>
-</table>
-
-<h1>Products</h1>
-<table>
-<tr>
-<% @products.each do |product| %>
-   <td><%= product.productName %> <%= product.productLine %></td>
-   <td><%= product.productScale %> <%= product.productVendor %><br></td>
-   <td><%= product.productDescription %>, <%= product.quantityInStock %><br></td>
-   <td><%= product.buyPrice %>, <%= product.MSRP %><br></td>
-</tr><% end %>
- </table>
- 

@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160221031913) do
+
+  create_table "blogs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "customers", primary_key: "customerNumber", force: :cascade do |t|
     t.string  "customerName",           limit: 50, null: false
@@ -100,6 +105,14 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   add_index "products", ["productLine"], name: "productLine", using: :btree
+
+  create_table "users", id: false, force: :cascade do |t|
+    t.integer "COL 1", limit: 4
+    t.string  "COL 2", limit: 2
+    t.string  "COL 3", limit: 5
+    t.string  "COL 4", limit: 19
+    t.string  "COL 5", limit: 19
+  end
 
   add_foreign_key "customers", "employees", column: "salesRepEmployeeNumber", primary_key: "employeeNumber", name: "customers_ibfk_1"
   add_foreign_key "employees", "employees", column: "reportsTo", primary_key: "employeeNumber", name: "employees_ibfk_1"

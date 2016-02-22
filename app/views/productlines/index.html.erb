@@ -9,9 +9,7 @@
 	<% when "7" then  @category = "Vintage Cars"  %>
 <% end %>
 
-<h3> <%= @category %></h3>
-
-<!-- this section contains product line results -->
+<h3> <%= @category %></h3><br>
 
 <!-- this section contains product line results -->
 
@@ -20,5 +18,5 @@
 <strong>Product Line:</strong> <%= product.productLine %><br>
 <strong>Item:</strong>        <%=link_to product.productName, :action => "show", :controller => 'products', :id => product.productCode  %><br />
 <strong>Description:</strong> <%= product.productDescription %><br>
-<strong>Price:</strong>       $<%= product.buyPrice %><br /><br>
+<strong>Price:</strong>       $<%= product.buyPrice %><br><br>
 <% end %><% end %>   
