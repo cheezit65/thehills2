@@ -3,29 +3,34 @@
 <%= stylesheet_link_tag "navbar" %>
 <%= stylesheet_link_tag "reset" %>
 <%= stylesheet_link_tag "960_12_col" %>
+<!-- stylesheet and title added by kim on 2/27/2016 -->
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+ <title>Lugnuts Automotive</title>
+
 </head>
 
-<body>
-
-<div class="container_12">
-    <div class="grid_12" style="background-color:#bb0000; height:210px">
-        <img src="../LugnutsInProgress.png" style="width:250px; height:187.5px; padding:10 0 0 15">
-        <img src="../LugnutsBanner.jpg" style="height:175px; width:auto; padding:30 0 0 5">
-
-
+<body style="background-color:#999">
+    <div style="background-color:#bb0000; height:210px; width:100%">
+        <div style="width:960px; height:210; margin:0 auto">
+            <img src="../LugnutsInProgress.png" style="width:250px; height:187.5px; padding:10 0 0 15">
+            <img src="../LugnutsBanner.jpg" style="height:175px; width:auto; padding:30 0 0 5">
+        </div>
     </div>
-    <div class="clear"></div> 
-    <div class="grid_12" id="cssmenu">
-        <ul>
-            <li><%= link_to 'Home', hello_Goodbye_path %></li>
-            <li><%= link_to 'Products', products_path %></li>
-            <li><%= link_to 'Blog', blogs_path %></li>
-            <li><%= link_to 'About Us', about_Us_path %></li>
-            <li><%= link_to 'Contact Us', contact_Us_path %></li>
-        </ul>
+
+    <div id="cssmenu" style="width:100%">
+        <div style="width:960px; margin:0 auto">
+            <ul>
+                <li><%= link_to 'Home', hello_Goodbye_path %></li>
+                <li><%= link_to 'Products', products_path %></li>
+                <li><%= link_to 'Blog', blogs_path %></li>
+                <li><%= link_to 'About Us', about_Us_path %></li>
+                <li><%= link_to 'Contact Us', contact_Us_path %></li>
+            </ul>
+        </div>
     </div>
-    <div class="clear"></div>
+    
 <!-- Main Container  -->
+<div class="container_12" style="background-color:white; height:100%">
 <div id="grad" class="mainContainer">
   <%= yield%>
 </div>

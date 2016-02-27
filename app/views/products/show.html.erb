@@ -1,10 +1,43 @@
-<h1>Item Description</h1>
-
-<%= params[:id] %>
+<!-- section added 2/26/2016) -->
+<!--Breadcrumbs -->
 <% @products.each do |product| %>
-<% if product.productCode == params[:id] %>
-Item Code:        <%= product.productCode  %><br />
-Item:             <%= product.productName  %><br />
-Description:      <%= product.productDescription %><br>
-Price:     $      <%= product.buyPrice %><br /><br>
-<% end %><% end %>
+    <% @products.each do |product| %>
+        <% if product.productCode == params[:id] %>
+            <% @productLine = product.productLine  %>
+    <% end %><% end %>
+<% end %>
+<%= link_to 'Products', products_path %>  / 
+<% @ProductLineName = @productLine %>
+    <% case @productLine %>
+    	<% when "Batteries"                         then  @productLine = "1"  %>
+    	<% when "Collision - Body Parts - Hardware" then  @productLine = "2"  %>
+    	<% when "Brakes"                            then  @productLine = "3"  %>
+    	<% when "Heating & Cooling"                 then  @productLine = "4"  %>
+    	<% when "Electrical - Lighting"             then  @productLine = "5"  %>
+    	<% when "Accessories"                       then  @productLine = "6"  %>
+    <% end %>
+<%= link_to @ProductLineName, :action => "index", :controller => 'productlines', :id => @productLine %>
+ / 
+<% @products.each do |product| %>
+    <% if product.productCode == params[:id] %>
+        <%= product.productName  %>
+    <% end %>
+<% end %>
+<!--End of Breadcrumbs -->
+
+<!-- Description of Product -->
+<h1>Item Description</h1>
+<div class="col-12">
+<% @products.each do |product| %>
+    <% if product.productCode == params[:id] %>
+        <img src="<%= product.productImage %>" align="left">
+        <p class="col-5" style="padding-left:35px; padding-top:25px"><strong>
+        <%= product.productName  %></strong><br /><br />
+            Description:<br>      <%= product.productDescription %><br /><br />
+            Price:     $      <%= product.buyPrice %><br />
+            Item Code:        <%= product.productCode  %><br /><br /><br />
+            Add to Cart
+        </p>
+    <% end %>
+<% end %>
+</div>
