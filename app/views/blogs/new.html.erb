@@ -1,5 +1,126 @@
-<h1>New Blog</h1>
+<div class="grid_12" style="padding-left: 30px"><h1>Lugnuts Blog</h1></div>
+<div class="clear"></div>
 
+<div class="grid_1" style="height:auto"></div>
+<!-- Feature Blog section -->
+<!-- Section added by Kim on 2/28/2016 -->
+<!-- look for search parameter, if none found, default to first blog, .strftime("%b %d,  %Y") to the created_at
+     dates to format the output -->
+<!-- Kim: Added @lugtitle variable line on 3/3/2016 -->  
+<% if params[:id] %>
+  <% @lugs.each do |lug| %>
+    <% if lug.id.to_i == params[:id].to_i %>
+    <div class="grid_7" style="height:150px; margin-top:10px; margin-left:30px"><h3><%= lug.title %></h3>
+    <% @lugtitle = lug.title %>
+    <% @lugid = lug.id %>
+    Date Posted: <%= lug.created_at.strftime("%b %d,  %Y") %><br/><br/>
+    <%= lug.post1 %><br><br>
+    <%= lug.post2 %><br><br>
+    <%= lug.post3 %><br><br>
+  </div>
+    <% end %>
+  <% end %>
+  <% else %>
+  <% params[:id] = 1 %>
+  <% @lugs.each do |lug| %>
+    <% if lug.id.to_i == params[:id].to_i %>
+    <div class="grid_7" style="height:150px; margin-top:10px"><h3><%= lug.title %></h3>
+    <% @lugtitle = lug.title %>
+    <% @lugid = lug.id %>
+    Date Posted: <%= lug.created_at.strftime("%b %d,  %Y") %><br/><br/>
+    <%= lug.post1 %><br><br>
+    <%= lug.post2 %><br><br>
+    <%= lug.post3 %><br><br>
+    </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div class="grid_1" style="height:auto"></div>
+<!-- END Feature Blog section -->
+
+<!-- Kim: Other Blogs section, located at the right of the Feature Blog section -->
+<!-- Kim: Changed height from 410 to 510 to align containers and took out background -->
+<!-- Kim: Changed float:right to float:left; appended  .strftime("%b %d,  %Y") to the created_at
+     dates to format the output -->
+<div class="grid_3" style="height:auto;  margin-top:10px; float:right; position:relative">
+    <h3>Other Blogs</h3><br>
+       <% @count = 0 %>
+   <tbody>
+    <% @lugs.each do |lug| %>
+     <% @count = @count + 1 %>
+      <tr>
+        <td><strong><%= lug.title %></strong><br></td>
+        <td>Date Posted: <%= lug.created_at.strftime("%b %d,  %Y") %><br/></td>
+        <td width="70%"><%=link_to "Read This Blog", :id => @count, :action => "new", :controller => 'blogs'  %></a></td><br><hr>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="clear"></div>
+<!-- END Other Blog section -->
+
+<!-- User Comments Section -->
+<!-- Kim: moved Share Your Thoughts code to previous section; changed section below to grid 8 -->
+<!-- Kim: Added Date Posted column, and sorted dates -->
+<div class="grid_5" style="margin-left:30px">
+<% #OPTIMIZE (KIM) 3/6 - When User Model is done, the "name" box will go away and automatically be populated with user's name %>
+<!-- Kim fixed Share your thoughts section on 3/15/2016 -->
+<% if user_signed_in? %>
+<strong><h4>Share Your Thoughts, <span style="color:black; font-size:16px"><%= current_user.username %></span>!</h4></strong>
 <%= render 'form' %>
+<% else %>
+<strong><h4>Log In to Share Your Thoughts!</h4></strong>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.label :email %>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span style="color:black">
+    <%= f.email_field :email, autofocus: true %>
+  <span class="actions" style="padding-left:44px; padding-top:30px">
+    <span style="color:black">
+    <%= f.submit "Log in" %>
+  </span></span>    
+  </div>
+  <div class="field">
+    <%= f.label :password %>: 
+    <span style="color:black">
+    <%= f.password_field :password, autocomplete: "off" %>
+</div>
+<% end %>
+<% end %>
+</div>
 
-<%= link_to 'Back', blogs_path %>
+<div class="clear"></div>
+<div class="grid_12" style="height:auto; padding-left: 20px; padding-bottom:50px; margin-top:40px; margin-left:30px">
+  <table width="900px">
+  <thead>
+    <tr align="left">
+      <th><strong>Date Posted<hr></strong></th>
+      <th><strong>Author<hr></strong></th>
+      <th><strong>Comments for <i><%= @lugtitle %></i><hr></strong></th>
+    </tr>
+  </thead>
+  <tbody id="blogtable">
+    <% @blogs.each do |blog| %>
+    <% if blog.lugref.to_i == params[:id].to_i %>
+      <tr valign="top">
+        <td width="25%"><%= blog.created_at.strftime("%b %d,  %Y")  %></td>
+        <td width="25%"><%= blog.title %></td>
+        <td width="50%"><%= blog.content %></td>
+        <td width="25px" style="margin-left:30px>&nbsp;&nbsp;&nbsp; 
+         <% if user_signed_in? %>
+        <% if blog.title == current_user.username %>
+        <td width="25px" style="margin-left:20px">&nbsp;&nbsp;&nbsp;<%= button_to 'Delete Comment', blog_path(blog.id),  :method => :delete, :lugref => @blog.id, :lugid => @blog.id  %> </td>
+        <td width="25px" style="margin-left:20px">&nbsp;&nbsp;&nbsp;<%= button_to 'Edit Comment', edit_blog_path(blog.id),  :method => :get %> </td>
+        <% end %><% end %>
+      </tr>
+      <tr style="height:10px; background-color:white">
+        <td colspan="3"> <hr /> </td>
+      </tr>
+      
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+</div>

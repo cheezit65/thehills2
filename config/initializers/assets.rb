@@ -14,3 +14,4 @@ Rails.application.config.assets.precompile += %w( reset.css )
 Rails.application.config.assets.precompile += %w( 960_12_col.css )
 Rails.application.config.assets.precompile += %w( slider1.jpg )
 Rails.application.config.assets.precompile += ['public/*']
+Rails.application.config.assets.precompile += %w( bootstrap.min.js )

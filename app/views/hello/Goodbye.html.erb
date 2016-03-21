@@ -1,8 +1,95 @@
 <!-- Main Container -->    
-    <div class="grid_9" style="background-color:#CCC; height:300px; margin-top:10px"></div>
+    <div class="grid_9" id="main" style="height:300px; margin-top:10px">
+      
+      <!-- Carousel template adde by Andrew on 2/28/16 -->
+      <!-- Kim (2/28/2016) I put bootstrap.min.js file in the regular assets/javascript
+          folder and added the following to the config/initializers/assets.rb so that it
+          would be precompiled.
+          Rails.application.config.assets.precompile += %w( bootstrap.min.js )
+          -->
+      
+       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators" style="margin-right:0">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <!--Ads created by Emily and added 2/28/16-->
+          <!--Ads redone/resized by Emily 3/4/16-->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="lugnutsadgraphic1.jpg" alt="Ad 1">
+              <div class="carousel-caption">
+                  <h3></h3>
+              </div>
+            </div>
+            <div class="item">
+              <img src="lugnutsadgraphic2str.jpg" alt="Ad 2">
+              <div class="carousel-caption">
+                  <h3></h3>
+              </div>
+            </div>
+            <div class="item">
+              <img src="lugnutsadgraphic3.jpg" alt="Ad 3">
+              <div class="carousel-caption">
+                  <h3></h3>
+              </div>
+            </div>
+          </div>
+         
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div> <!-- Carousel -->
+        
+        
+        <div id="phoneMain" style="display:none">
+          <img src="LugnutsBanner.jpg">
+        </div>
+        
+    </div>
 
 <!-- Blog container on main page -->
-    <div class="grid_3" style="background-color:#CCC; height:410px; margin-top:10px; float:right; position:relative">
+<!-- Kim: updated content on 3/1/2016 -->
+<!-- Kim: made container round on bottom on 3/2/2016 
+border-radius: 15px;-webkit-border-radius: 15px; -moz-border-radius: 15px-->
+
+<div class="grid_3" id="blog" style="background-color:#CCC; height:410px; margin-top:10px; float:right; position:relative; 
+    border-radius: 15px;-webkit-border-radius: 15px; -moz-border-radius: 15px">
+<div align="center">
+  <h4><strong>The Lugnuts Blog</strong></h4><hr>
+    <% if params[:id] %>
+    <% @lugs.each do |lug| %>
+    <% if lug.id.to_i == params[:id].to_i %>
+    <div><strong><p style="font-size:10pt"><%= lug.title %></strong></p>
+    <p style="font-size:9pt"; style="text-align:center">Date Posted: <%= lug.created_at.strftime("%b %d,  %Y") %><br/><br/>
+    <p style="text-align:left; padding-left: 5px; font-size:8pt"><%= lug.post1 %><p>
+  </div>
+</div>
+  <% end %>
+  <% end %>
+<% else %>
+  <% params[:id] = 1 %>
+  <% @lugs.each do |lug| %>
+    <% if lug.id.to_i == params[:id].to_i %>
+    <div><strong><p style="font-size:10pt"><%= lug.title %></strong></p>
+    <p style="font-size:9pt"; style="text-align:center">Date Posted: <%= lug.created_at.strftime("%b %d,  %Y") %><br/><br/>
+      <p style="text-align:left; padding-left: 5px; font-size:8pt"><%= lug.post1 %><p>
+    </div>
+  <% end %>
+  <% end %>
+<% end %>
+<%= link_to 'Read More!', new_blog_path, {:style=>'color:#000000;'} %>
+<hr style="margin-top: 5px">
+</div>
+<!-- end blog, begin Social Media -->
       	<div id="socialmedia" style="position:absolute; bottom:0; margin:0 0 10 40">
           <!-- Share Buttons credit: simplesharebuttons.com -->
           <!-- Email -->
@@ -22,60 +109,70 @@
     
 
 <!-- Old News Containers -->
-  	<div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px">
+<!-- Kim updated containers to make them have rounded corners on 3/2 -->
+<div id="news">
+  	<div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px; 
+    border-radius: 15px;-webkit-border-radius: 15px; -moz-border-radius: 15px;">
+  	  <p style="text-align:center; font-size:8pt"><strong> Fix-A-Flat Special! $10 Off 
+  	  <br>Instore Only!<img style="float: left; padding-left: 25px" src="../FixFlat.png" alt="Fix-a-Flat" /></strong><br />
+  	  </p>
     </div>
     
-    <div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px">
+    <div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px; 
+    border-radius: 15px;-webkit-border-radius: 15px; -moz-border-radius: 15px;">
+      <p style="text-align:center; font-size:10pt"><strong>Every Wednesday is<br> Golden Buckeye <br>Discount Day</strong></p>
+      <p style="text-align:center; font-size:8pt"><strong>Bring in your card to receive an additional 10% off!</strong></p>
     </div>
     
-    <div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px">
+    <div class="grid_3" style="background-color:#CCC; height:100px; margin-top:10px; 
+    border-radius: 15px;-webkit-border-radius: 15px; -moz-border-radius: 15px;  ">
+      <p style="text-align:center; font-size:10pt"><strong>Do-It-Yourself Workshop<br></strong></p>
+      <p style="text-align:center; font-size:10pt"><strong>"How to Change Your Oil"</strong></p>
+      <p style="text-align:center; font-size:8pt"><strong>April 2, 2016*</strong></p>
+      <p style="text-align:center; font-size:7pt"><strong>*See store clerk for information</strong></p>
     </div>
-
+</div>
+    <div class="clear"></div>
+    
 
   
 <!-- Specials and Other Info -->
-  	<div class="grid_4" style="background-color:#CCC; height:100px; margin-top:20px"></div>
-    <div class="grid_4" style="background-color:#CCC; height:100px; margin-top:20px"></div>
-    <div class="grid_4" style="background-color:#CCC; height:100px; margin-top:20px"></div>
-    <div class="clear"></div>
-    
-    
-<!-- Loaction and Direction -->
-    <div class="grid_4" style="height:100px; margin-top:20px"></div>
-    <div class="grid_4" style="height:100px; margin-top:20px">
-      <table style="margin:0 auto 0 auto">
-      <tr> 
-      <td style="text-align:center">Store Location:</td>
-      <td style="text-align:center"> 123 Fake St</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td style="text-align:center"> Columbus, Ohio 43210 </td>
-      </tr>
-      <tr>
-          <td></td>
-          <td></td>
-      </tr>
-      <tr>
-        <td style="text-align:center">Hours: </td>
-        <td style="text-align:center">M-F: 9-7</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td style="text-align:center">Sat: 10-6</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td style="text-align:center">Sun: 12-5</td>
-      </tr>
-      
-      </table>
-      
-      
+    <!-- Ad images added by Emily 2/28/16 -->
+  	<div class="grid_4" class="hide" style="height:100px; margin-top:20px">
+  	  <img src="batteryAd.jpg" style="height:auto; max-width:100%">
+  	</div>
+  	
+    <div class="grid_4" class="hide" style="height:100px; margin-top:20px">
+      <img src="ReturnAd.jpg" style="height:auto; max-width:300px">
     </div>
-    <div class="grid_4" style="height:100px; margin-top:20px"></div>
+    <div class="grid_4" class="hide" style="background-color:#CCC; height:100px; margin-top:20px">
+      <img src="PickUpAd.jpg" style="height:auto; max-width:300px">
+    </div>
     <div class="clear"></div>
-  
+    
+    
+    
+<!-- Locaction and Direction, created by Andrew -->
+<!-- Locaction and Direction, Updated by Kim on 3/1/2016 -->
+<!-- Will try to add sticky footer by end of week 3 -->
+
+  <div class="grid_12"  class="shadow" class="hide" style="background-color:#CCC; height:50px; margin-top:10px; 
+    border-radius: 15px;-webkit-border-radius: 15px; -moz-border-radius: 15px">
+    <table>
+      <tr> 
+        <td style="font-size:8pt; padding-left: 50px">Store Location:</td>
+        <td></td>
+        <td align="right" style="font-size:8pt; padding-left: 20px"> 123 Buckeye Fan Ave., Columbus, Ohio 43210</td>
+      </tr>
+      <tr> 
+        <td style="min-width:25%; font-size:8pt; padding-left: 50px ">Store Hours:</td>
+        <td></td>
+        <td style="font-size:8pt;  padding-left: 20px">Monday-Friday 7:00-9:00 &nbsp;&nbsp;&nbsp; Saturday 10:00-6:00 &nbsp;&nbsp;&nbsp; Sunday 12:00-5:00</td>
+      </tr>
+    </table>
+  </div>      
+    <div class="clear"></div>
   
 <!-- End of 960 grid -->  
 </div>
+

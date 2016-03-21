@@ -1,0 +1,46 @@
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+<% @grandTotal = 0 %>
+
+<h2 align="center">Review Your Order</h2><br>
+<div class="grid_6">
+<h4 align="center">Order Details </h4><hr>
+<table style="width:480px">
+<% @line_items.each do |item| %>
+    <tr>
+<% @products.each do |product| %>
+    <% if product.productCode == item.product_id %>
+<div>
+<% if item.quantity.to_i < 1 %>
+<% item.quantity = 1 %>
+<% end %>
+<td width="20%" style="padding:20px;text-align:right;"><%= item.quantity %></td>
+
+<td width="80%" style="padding:20px;text-align:left;"><%= product.productName  %></td>
+
+<td width=20%  style="padding:20px; text-align:right;"> <%= product.buyPrice %></td>
+
+<% @grandTotal += product.buyPrice %>
+    </tr><% end %>
+    </div>
+    <% end %>
+    <% end %>
+    <tr>
+        <td  width="20%"  style="padding:20px;text-align:right;"><br></td>
+        <td   width="80%" style="padding:20px;text-align:right;"><br>Order Total:</td>
+        <td  width="20%"   style="padding:20px;text-align:right;"><br>$<%= @grandTotal.round(2) %></td>
+        </tr>
+</table>
+</div>
+<!-- Customer information -->
+
+<div class="grid_5" id="rightContent" style="min-height:300px">
+<h4 align="center">Customer Information</h4><hr>
+
+</div><br>
+<div class="grid_12">
+<div style="float:left; padding-left: 25%;padding-top:50px"><%= button_to 'Update Order', edit_cart_path, :method => :get, :cartid => :cartid,  :class => 'button', remote: true %></div>
+<div style="float:left; padding-left: 5%; padding-top:50px"><%= button_to 'Check Out', edit_cart_path, :method => :get, :cartid => :cartid, :class => 'button' %></div>
+<div style="float:left; padding-left: 5%; padding-top:50px"><%= button_to "Empty Cart", cart_path(@cart), :method => :delete, :class => 'button' %>&nbsp;</div>
+</div>

@@ -10,8 +10,20 @@
       </ul>
     </div>
   <% end %>
-
+<!-- this section modified by Kim on 3/15/2016 -->
+  <div class="field" style="display: none">
+    <%= f.label :Name  %><br>
+    <%= f.text_field :title, :value => current_user.username  %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_area :content, :cols => 50, :rows => 5 %>
+  </div>
+  <div class="field" style="display: none;">
+    <%= f.label :lugref %>
+    <%= f.text_area :lugref, :value => @lugid %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save Comment" %>
   </div>
 <% end %>

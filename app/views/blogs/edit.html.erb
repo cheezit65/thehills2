@@ -1,6 +1,5 @@
-<h1>Editing Blog</h1>
+<h2>Edit Your Post, <%= current_user.username %></h2>
 
-<%= render 'form' %>
+<%= render 'form2' %>
 
-<%= link_to 'Show', @blog %> |
-<%= link_to 'Back', blogs_path %>
+<%= link_to 'Back to Comments', new_blog_path %>

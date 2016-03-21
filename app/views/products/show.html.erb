@@ -1,4 +1,4 @@
-<!-- section added 2/26/2016) -->
+<!-- Kim: section added 2/26/2016) -->
 <!--Breadcrumbs -->
 <% @products.each do |product| %>
     <% @products.each do |product| %>
@@ -26,18 +26,34 @@
 <!--End of Breadcrumbs -->
 
 <!-- Description of Product -->
-<h1>Item Description</h1>
-<div class="col-12">
-<% @products.each do |product| %>
+<!-- Kim: modified code to add button and format into 960 grid 3/2/2016 -->
+<!-- Kim: added Add To Cart icon/button (DISABLED until functional) 3/2/2016 -->
+<div class="grid_12">
+    <% @products.each do |product| %>
     <% if product.productCode == params[:id] %>
-        <img src="<%= product.productImage %>" align="left">
-        <p class="col-5" style="padding-left:35px; padding-top:25px"><strong>
-        <%= product.productName  %></strong><br /><br />
-            Description:<br>      <%= product.productDescription %><br /><br />
-            Price:     $      <%= product.buyPrice %><br />
-            Item Code:        <%= product.productCode  %><br /><br /><br />
-            Add to Cart
-        </p>
-    <% end %>
+    </div>
+<div class="grid_5">
+    <img src="<%= product.productImage %>" style="max-width:100%" align="left">
+</div>
+<div class="grid_5" style=" padding-top:25px; float:right;margin-right:10%">
+    <h1><strong><%= product.productName  %></strong></h1><br />
+        <%= product.productDescription %><br /><br />
+        <p>Price: $ <%= product.buyPrice %></p>
+        <p>Item Code:        <%= product.productCode  %></p>
+         
+</div>
+<div class="clear"></div>
+<div id="cartButton" onclick="changeButton()" class="grid_9" style="float:right; margin-top:15px">
+<%= button_to 'Add to Cart', line_items_path(product_id: product) %>
+                    </button>
+    
+</div>
+    
+<% end %>
 <% end %>
 </div>
+<script>
+    function changeButton() {
+        document.getElementById("cartButton").innerHTML = 'Item is now in your Shopping Cart';
+    }
+</script>
