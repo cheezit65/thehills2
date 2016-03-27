@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :web_customers
   resources :web_order_details
   resources :web_orders
-  resources :web_customers
   resources :orders
   resources :line_items
   resources :carts

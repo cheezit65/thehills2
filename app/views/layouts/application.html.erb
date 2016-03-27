@@ -1,23 +1,26 @@
 <html style="height:100%">
 <head>
     <%= stylesheet_link_tag "navbar" %>
+    <%= stylesheet_link_tag "formalize" %>
     <%= stylesheet_link_tag "reset" %>
     <%= stylesheet_link_tag "960_12_col" %>
     <%= stylesheet_link_tag "bootstrap.css" %>
     <%= stylesheet_link_tag "buttons.css" %>
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" %>
+    <%= javascript_include_tag "jquery.formalize" %>
     <%= javascript_include_tag "bootstrap.min.js" %>
     <!-- stylesheet and title added by kim on 2/27/2016 -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <link href='https://fonts.googleapis.com/css?family=Passion+One:400,700' rel='stylesheet' type='text/css'>
     
     
     <!-- Added by Andrew 3/5/2016 for responsive layout -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 
-<!-- Kim: 3/1/2016 - changed logo to old logo - just to see what a bigger logo did for space. -->
-<!-- Kim: 3/1/2016 - Added login/cart icon - nonfunctional -->
-<!-- Kim: changed background color (background-color:#999) to background image -->
-<title>Lugnuts Automotive</title>
+    <!-- Kim: 3/1/2016 - changed logo to old logo - just to see what a bigger logo did for space. -->
+    <!-- Kim: 3/1/2016 - Added login/cart icon - nonfunctional -->
+    <!-- Kim: changed background color (background-color:#999) to background image -->
+    <title>Lugnuts Automotive</title>
 </head>
 
 <body id="showBackground" style="height:100%">
@@ -72,10 +75,12 @@
         
         <% end %>
         
+<!-- 3/24/2016 -- watch this code, could cause trouble -->
+        <% if !@carts.nil? %>
         <% @carts.each do |cart| %>
         <% cart.id %>
         <% @cartid = cart.id %>
-<% end %>
+<% end %><% end %>
     <% end %>
             </div>
 </div>
@@ -107,7 +112,7 @@
     </div>
     
     <!-- Main Container  -->
-    <div class="container_12" style="background-color:white; min-height:100%">
+    <div class="container_12" style="background-color:white; padding-bottom:100px">
         <%= yield %>
     </div>
 </body>

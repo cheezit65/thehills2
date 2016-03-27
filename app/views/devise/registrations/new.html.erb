@@ -1,3 +1,12 @@
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Passion+One:400,700' rel='stylesheet' type='text/css'>
+</head>
+<style>
+    h1, h2{
+        font-family: 'Passion One';
+    }
+</style>
+
 <h2 style="margin-left:45px">Sign up</h2>
 
 <div class="grid_5" style="margin-left:60px">
@@ -25,6 +34,14 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+  
+  <div class="field">
+    Would you like to receive our monthly newsletter?</br>
+    <%= radio_button_tag(:newsletter, "Yes", true) %>
+    <%= label_tag(:newsletter_yes, "Yes") %>
+    <%= radio_button_tag(:newsletter, "No") %>
+    <%= label_tag(:newsletter_no, "No") %>
   </div>
 
   <div class="actions">

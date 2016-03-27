@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 gem 'seed_dump'
 gem 'mysql2', '~> 0.3.20'
 gem 'rails_12factor'
+gem 'credit_card_validations'
+gem 'validates_email_format_of'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use mysql as the database for Active Record

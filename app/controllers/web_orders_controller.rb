@@ -1,6 +1,5 @@
 class WebOrdersController < ApplicationController
-  before_action :set_web_order, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /web_orders
   # GET /web_orders.json
   def index
@@ -9,15 +8,23 @@ class WebOrdersController < ApplicationController
     @carts = Cart.all
     @line_items = LineItem.all
   end
-
+createOrder
+    @products = Product.all
+    @carts = Cart.all
+    @line_items = LineItem.all
+    @web_order_detail.create(@line_items)
+    
+  
   # GET /web_orders/1
   # GET /web_orders/1.json
   def show
+   @web_customers = WebCustomer.all
    @web_orders = WebOrder.all
    @products = Product.all
    @carts = Cart.all
    @line_items = LineItem.all
    @grandTotal = 0
+   
   end
 
   # GET /web_orders/new
@@ -34,8 +41,6 @@ class WebOrdersController < ApplicationController
   # POST /web_orders
   # POST /web_orders.json
   def create
-    @web_order = WebOrder.new(web_order_params)
-
     respond_to do |format|
       if @web_order.save
         format.html { redirect_to @web_order, notice: 'Web order was successfully created.' }

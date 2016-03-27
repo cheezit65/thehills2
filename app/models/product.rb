@@ -7,7 +7,15 @@ class Product < ActiveRecord::Base
     @products = Product.all
     @productlines = Productline.all
    end
-  
+   
+def self.search(search)
+  words = name.split(/\W+/)
+  if search
+  where('words LIKE ?', "%#{search}%")
+  else
+  all
+ end
+end  
   
   has_many :line_items
  

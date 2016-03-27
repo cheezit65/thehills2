@@ -15,6 +15,19 @@
  */
 /* CSS Document */
 
+.buttonW{
+width: 187px;	
+}
+.lineFormat{
+	float:left;
+ font-size:14pt;
+ height: 30px;
+  padding-bottom: 1em;
+	
+}
+.hidden{
+display:none;	
+}
 
 #rightContent {
     border-left: thick double #EEEEEE;
@@ -172,13 +185,13 @@ img, embed, object, video, iframe {
 
 
 
-@media (max-width: 760px)
-{
+/*@media (max-width: 760px)*/
+/*{*/
 
-	#blog, #news, #carousel-example-generic, #login, #hide {
-        display:none !important;
-	}
-}
+/*	#blog, #news, #carousel-example-generic, #login, #hide {*/
+/*        display:none !important;*/
+/*	}*/
+/*}*/
 /*
 @media (max-width: 520px)
 {

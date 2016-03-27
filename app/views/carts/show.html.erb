@@ -1,3 +1,12 @@
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Passion+One:400,700' rel='stylesheet' type='text/css'>
+</head>
+<style>
+    h1, h2{
+        font-family: 'Passion One';
+    }
+</style>
+
 <% if notice %>
 <p id="notice"><%= notice %></p>
 
@@ -5,10 +14,15 @@
 <% @grandTotal = 0 %>
 
 <h2 align="center">Your Lugnuts Shopping Cart</h2><br>
-<table style="text-align: right; width:960px">
+<h4  align="center">Free Shipping on Orders over $250!</h4><br>
+<table style="text-align: right; width:760px">
     <h4 style="text-align:center; font-size:14pt">TOTAL ITEMS IN CART: 
 <span style="font-size:13pt"><%= @line_items.count %><br /><br>
 <%= @lineCount %>
+<% if @line_items.count.to_i < 1 %>
+<h2> Your cart is empty. Shop Lugnuts Products! </h2>
+<%= link_to 'Continue Shopping', products_path, :class => 'button' %>
+<% end %>
 </span>
 <% @line_items.each do |item| %>
     <tr>
@@ -19,28 +33,46 @@
 <% end %>
 <td style="padding-left:10%; valign:top">
  <%= form_for :item, :method => :put, :url => line_item_path(item) do |f| %>
- <%= f.number_field :quantity, min: 1, :value => item.quantity %><br><br>
- <%= submit_tag "Update Quantity" %>
+ <%= f.number_field :quantity,  :size=>"10px", min: 1,max: 99, :value => item.quantity %><br><br>
+ <%= submit_tag "Update Quantity", :class => "buttonW" %><br><br>
  <%= f.hidden_field :id, :value => item.id %><br>
  <%= f.hidden_field :product_id, :value => item.product_id %><br>
  <%= f.hidden_field :cart_id, :value => item.cart_id %><br>
  <br>
  <% end %>
 </td>
-<td  width="40%" style="float:left;height:35px"><%= product.productName  %></td>
-<td  width="20%" style="padding-left:20px"> <%= product.buyPrice %><br><br><br><br></td>
-
+<td  width="70%" style="float:right;height:35px"><%= product.productName  %></td>
+<td  width="20%" style="padding-left:50px"> <%= product.buyPrice %> <br><br><br><br></td>
 <% @grandTotal += product.buyPrice * item.quantity.to_i %>
     </tr><% end %>
     <% end %>
     <% end %>
-    
     <tr><br>
         <td  width="10%" style="padding-left:20px"></td>
-        <td   width="40%" style="float:right;padding-left:20px">Order Total:</td>
-        <td  width="20%" style="float:right;padding-left:20px">$<%=  @grandTotal.round(2) %></td>
-        <hr></tr>
+        <td   width="50%" style="float:left">Order Subtotal:</td>
+        <td  width="20%" style="float:right">$<%=  @grandTotal.round(2) %></td>
+    <tr><br>
+        <td  width="10%" style="padding-left:20px"></td>
+        <% if @grandTotal > 250 %>
+            <% @ShippingCharge = 0 %>
+            <td   width="50%" style="float:left;color:red"><strong>Free Shipping!<strong></td>
+            <td  width="20%" style="float:right">$0.00</td>
+        <% else  %>        
+            <% @ShippingCharge =  (@grandTotal * 0.10).round(2) %>
+            <td   width="50%" style="float:left">Shipping:</td>
+            <td  width="20%" style="float:right">$  <%=  '%.2f' % [@ShippingCharge]  %></td>
+        <% end %>
+        
+    <tr><br>
+        <td  width="10%" style="padding-left:20px"></td>
+        <td   width="50%" style="float:left">Order Total:</td>
+        
+        <% @grandTotal = @grandTotal + @ShippingCharge %>
+        <td  width="20%" style="float:right">$<%=  @grandTotal.round(2) %></td>
+</tr>
 </table>
 
-<div style="float:left; padding-left: 60%;padding-top:50px"><%= button_to 'Check Out', edit_cart_path, :method => :get, :cartid => :cartid, :class => 'button' %></div>
-<div style="float:left; padding-left: 20px;padding-top:50px"><%= button_to "Empty Cart", cart_path(@cart), :method => :delete, :class => 'button' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div style="float:left; padding-left: 30%;padding-top:50px"><%= link_to 'Continue Shopping', products_path, :class => 'button' %></div>
+<div style="float:left; padding-left: 20px;padding-top:50px"><%= button_to 'Review Order', edit_cart_path, :method => :get, :cartid => :cartid, :class => 'button' %></div>
+<div style="float:left; padding-left: 20px;padding-top:50px"><%= button_to "Empty Cart", cart_path(@cart), :method => :delete,  :confirm => "Are you sure you want to delete your cart?", :class => 'button' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>

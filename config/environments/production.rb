@@ -75,8 +75,8 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
-    config.action_mailer.default_url_options = { :host => 'schoolapp-cheezit65.c9users.io' }
+config.active_record.dump_schema_after_migration = false
+config.action_mailer.default_url_options = { :host => 'schoolapp-cheezit65.c9users.io' }
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.perform_deliveries = true
 config.action_mailer.smtp_settings = {

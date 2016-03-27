@@ -14,7 +14,7 @@ class WebOrderDetailsController < ApplicationController
 
   # GET /web_order_details/new
   def new
-    @web_order_detail = WebOrderDetail.new
+    @web_order_details = WebOrderDetail.new
   end
 
   # GET /web_order_details/1/edit
@@ -64,11 +64,12 @@ class WebOrderDetailsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_web_order_detail
-      @web_order_detail = WebOrderDetail.find(params[:id])
+      @line_item = LineItem.find(params[:id])
+      @web_order_detail = WebOrderDetail.(@line_item)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def web_order_detail_params
-      params.fetch(:web_order_detail, {})
+     params.require(:product_id, :quantity, ).permit()
     end
 end

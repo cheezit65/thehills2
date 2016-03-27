@@ -18,7 +18,7 @@ class WebCustomersControllerTest < ActionController::TestCase
 
   test "should create web_customer" do
     assert_difference('WebCustomer.count') do
-      post :create, web_customer: {  }
+      post :create, web_customer: { addressLine1: @web_customer.addressLine1, addressLine2: @web_customer.addressLine2, city: @web_customer.city, firstName: @web_customer.firstName, lastName: @web_customer.lastName, phone: @web_customer.phone, postalcode: @web_customer.postalcode, state: @web_customer.state }
     end
 
     assert_redirected_to web_customer_path(assigns(:web_customer))
@@ -35,7 +35,7 @@ class WebCustomersControllerTest < ActionController::TestCase
   end
 
   test "should update web_customer" do
-    patch :update, id: @web_customer, web_customer: {  }
+    patch :update, id: @web_customer, web_customer: { addressLine1: @web_customer.addressLine1, addressLine2: @web_customer.addressLine2, city: @web_customer.city, firstName: @web_customer.firstName, lastName: @web_customer.lastName, phone: @web_customer.phone, postalcode: @web_customer.postalcode, state: @web_customer.state }
     assert_redirected_to web_customer_path(assigns(:web_customer))
   end
 

@@ -16,7 +16,7 @@ def after_sign_in_path_for(resource)
 end
 
   def index
-    @carts = Cart.all
+   @cart = current_cart
     @line_items = LineItem.all
   end
   def count

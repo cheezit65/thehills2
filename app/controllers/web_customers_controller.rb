@@ -5,16 +5,39 @@ class WebCustomersController < ApplicationController
   # GET /web_customers.json
   def index
     @web_customers = WebCustomer.all
+    @products = Product.all
+    @carts = Cart.all
+    @line_items = LineItem.all
+
   end
 
   # GET /web_customers/1
   # GET /web_customers/1.json
   def show
-  end
+    @web_orders = WebOrder.find_by(customerNumber: params[:id])
+    @orderNum = @web_orders.orderNumber
+    @products = Product.all
+    @line_items = LineItem.all
+
+@line_items.each do |item|
+@web_order_details = WebOrderDetail.new  
+
+@web_order_details.quantityOrdered = item.quantity
+@web_order_details.productCode = item.product_id
+@web_order_details.orderNumber = @orderNum
+@web_order_details.save
+end  
+current_cart.destroy
+OrderMailer.order_confirmation(@web_customer, @orderNum, @web_order_details).deliver
+OrderMailer.order_fulfillment(@web_customer, @orderNum, @web_order_details).deliver
+end
 
   # GET /web_customers/new
   def new
     @web_customer = WebCustomer.new
+    @products = Product.all
+    @carts = Cart.all
+    @line_items = LineItem.all
   end
 
   # GET /web_customers/1/edit
@@ -23,17 +46,34 @@ class WebCustomersController < ApplicationController
 
   # POST /web_customers
   # POST /web_customers.json
+    def count
+     @line_items = LineItem.all.count
+  end
+
   def create
+    @products = Product.all
+    @carts = Cart.all
+    @cart = current_cart
+    @line_items = LineItem.all
+    @web_orders = WebOrder.all
+    @web_order_detail = WebOrderDetail.new
     @web_customer = WebCustomer.new(web_customer_params)
+    @web_order = WebOrder.new
 
     respond_to do |format|
       if @web_customer.save
-        format.html { redirect_to @web_customer, notice: 'Web customer was successfully created.' }
-        format.json { render :show, status: :created, location: @web_customer }
+          
       else
         format.html { render :new }
         format.json { render json: @web_customer.errors, status: :unprocessable_entity }
       end
+        @web_order.customerNumber = @web_customer.customerNumber        
+        @web_order.save!
+        @web_order_detail.orderNumber = @web_order.orderNumber
+        @web_order_detail.save!
+        format.html { redirect_to @web_customer, notice: 'Order successfully submitted.' }
+        format.json { render :show, status: :created, location: @web_customer }
+       
     end
   end
 
@@ -54,6 +94,7 @@ class WebCustomersController < ApplicationController
   # DELETE /web_customers/1
   # DELETE /web_customers/1.json
   def destroy
+    
     @web_customer.destroy
     respond_to do |format|
       format.html { redirect_to web_customers_url, notice: 'Web customer was successfully destroyed.' }
@@ -69,6 +110,14 @@ class WebCustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def web_customer_params
-      params.fetch(:web_customer, {})
+      params.require(:web_customer).permit(:firstName, :lastName, :phone, :addressLine1, :addressLine2, :city, :state, :postalcode, :email)
     end
+    
+    def emailOrder
+  @web_order.customerNumber = @web_customer.customerNumber   
+  @web_orders = WebOrder.find_by(customerNumber: params[:id])
+  @orderNum = @web_orders.orderNumber
+  OrderMailer.request_email(params[:email], @web_orders).deliver  
+  else  
+  end  
 end

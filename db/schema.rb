@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317213342) do
+ActiveRecord::Schema.define(version: 20160324120959) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -57,11 +57,11 @@ ActiveRecord::Schema.define(version: 20160317213342) do
   add_index "employees", ["reportsTo"], name: "reportsTo", using: :btree
 
   create_table "line_items", force: :cascade do |t|
-    t.string   "product_id", limit: 255
-    t.integer  "cart_id",    limit: 4
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "quantity",   limit: 4,   default: 1
+    t.string   "product_id", limit: 255,               null: false
+    t.text     "cart_id",    limit: 65535,             null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "quantity",   limit: 4,     default: 1
   end
 
   create_table "lugs", force: :cascade do |t|
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20160317213342) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
-  create_table "web_customers", force: :cascade do |t|
+  create_table "web_customers", primary_key: "customerNumber", force: :cascade do |t|
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "firstName",    limit: 255
@@ -168,27 +168,32 @@ ActiveRecord::Schema.define(version: 20160317213342) do
     t.string   "state",        limit: 255
     t.string   "postalcode",   limit: 255
     t.string   "country",      limit: 255
+    t.string   "email",        limit: 255
   end
+
+  add_index "web_customers", ["customerNumber"], name: "customerNumber", using: :btree
 
   create_table "web_order_details", force: :cascade do |t|
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.integer  "orderNumber",     limit: 4
+    t.integer  "orderNumber",     limit: 4,   null: false
     t.string   "productCode",     limit: 255
     t.integer  "quantityOrdered", limit: 4
     t.integer  "buyPrice",        limit: 4
     t.integer  "orderLineNumber", limit: 4
   end
 
-  create_table "web_orders", force: :cascade do |t|
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "orderNumber",    limit: 4
-    t.integer  "orderDate",      limit: 4
-    t.integer  "shippedDate",    limit: 4
-    t.string   "status",         limit: 255
+  create_table "web_orders", primary_key: "orderNumber", force: :cascade do |t|
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.datetime "orderDate"
+    t.date     "shippedDate"
+    t.string   "status",         limit: 255, default: "In process"
     t.integer  "customerNumber", limit: 4
   end
+
+  add_index "web_orders", ["customerNumber"], name: "customerNumber", unique: true, using: :btree
+  add_index "web_orders", ["orderNumber"], name: "orderNumber", unique: true, using: :btree
 
   add_foreign_key "customers", "employees", column: "salesRepEmployeeNumber", primary_key: "employeeNumber", name: "customers_ibfk_1"
   add_foreign_key "employees", "employees", column: "reportsTo", primary_key: "employeeNumber", name: "employees_ibfk_1"

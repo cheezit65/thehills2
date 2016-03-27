@@ -19,8 +19,10 @@ class CartsController < ApplicationController
      @line_items = LineItem.all
      @products = Product.all
      @carts = Cart.all
+     
      begin
      @cart = Cart.find(params[:id])
+       
      rescue ActiveRecord::RecordNotFound
      logger.error "attempt to access invalid cart #{params[:id]}"
      redirect_to products_url, notice: 'Invalid Cart'
