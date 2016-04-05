@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  resources :teams
   resources :web_customers
   resources :web_order_details
   resources :web_orders
   resources :orders
   resources :line_items
   resources :carts
+  resource :carts, :only => :show 
   devise_for :users
  resources :lugs
   resources :blogs
@@ -17,7 +19,6 @@ Rails.application.routes.draw do
   get 'products/show'
   resources :products
   resources :productlines
-  get 'hello/Goodbye'
   get 'blog', to: 'blog#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

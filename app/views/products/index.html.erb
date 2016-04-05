@@ -3,10 +3,12 @@
 </head>
 
 <style>
-	td {
-		text-align:center;
+
+<!-- Kim commented td out to make table responsive -->
+	/*td {*/
+	/*	text-align:center;*/
 		
-	}
+	/*}*/
 	
 	.link.hover{
 		color:red;
@@ -45,7 +47,7 @@
 	<!-- Kim: 3/5 Product Search -->
 	<% #FIXME (KIM) 3/6 Search produces incorrect errors when search box is empty %>
 	<% #FIXME (KIM) 3/6  Search is case-sensitive %>
-	<%= form_tag(products_path, :method => "get", id: "search-form") do %>
+	<%= form_tag(products_path, :method => "get",:action => 'search') do %>
 		<%= text_field_tag :search, params[:search], placeholder: "Search Products" %>
 		<%= submit_tag "Search", :class => "button", :name => nil %>
 	<% end %>
@@ -53,6 +55,7 @@
 	<!-- Kim: 3/5 Product Search Results -->
 	<div align="left">
 		<% if !params[:search].nil? %>
+		
 			<h4 style="margin-left:30px">Results for <%= params[:search] %></h4>
 			<% @products.each do |product| %>
 				<% if product.productLine.include?("Accessories") || product.productLine.include?("Batteries") 	|| product.productLine.include?("Brakes") || product.productLine.include?("Collision") || product.productLine.include?("Electrical")|| product.productLine.include?("Heating") %>

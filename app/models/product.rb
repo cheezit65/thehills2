@@ -1,22 +1,23 @@
 class Product < ActiveRecord::Base
-     def index
+def index
     @products = Product.all
     @productlines = Productline.all
-   end
-       def show
+
+end
+
+def show
     @products = Product.all
     @productlines = Productline.all
-   end
+end
    
+
+
 def self.search(search)
-  words = name.split(/\W+/)
-  if search
-  where('words LIKE ?', "%#{search}%")
-  else
-  all
- end
-end  
-  
+    @results = Product.all
+    @results.where('productDescription LIKE ?', "%#{search}%")
+end
+
+
   has_many :line_items
  
   before_destroy :ensure_not_referenced_by_any_line_item

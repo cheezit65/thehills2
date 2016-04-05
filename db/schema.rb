@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324120959) do
+ActiveRecord::Schema.define(version: 20160329234044) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20160324120959) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "number",       limit: 255
+    t.string   "expDate",      limit: 255
+    t.integer  "securityCode", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "customers", primary_key: "customerNumber", force: :cascade do |t|
@@ -132,6 +140,11 @@ ActiveRecord::Schema.define(version: 20160324120959) do
 
   add_index "products", ["productLine"], name: "productLine", using: :btree
 
+  create_table "teams", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
@@ -150,6 +163,7 @@ ActiveRecord::Schema.define(version: 20160324120959) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "username",               limit: 255
+    t.integer  "webCustID",              limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -169,6 +183,7 @@ ActiveRecord::Schema.define(version: 20160324120959) do
     t.string   "postalcode",   limit: 255
     t.string   "country",      limit: 255
     t.string   "email",        limit: 255
+    t.integer  "user_id",      limit: 4
   end
 
   add_index "web_customers", ["customerNumber"], name: "customerNumber", using: :btree

@@ -7,8 +7,9 @@ class ProductsController < ApplicationController
     @products = Product.all
     @carts = Cart.all
     @line_items = LineItem.all
+    @results = Product.search(params[:search])
+end
 
-  end
   def count
      @line_items = LineItem.all.count
   end

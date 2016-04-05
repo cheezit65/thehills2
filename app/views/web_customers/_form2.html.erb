@@ -1,3 +1,19 @@
+<% @web_customers = WebCustomer.all %>
+<% @web_customers.each do |customer| %>
+  <% if customer.user_id == current_user.id %>
+    <% @cusNumber = customer.customerNumber %>
+    <% @firstName = customer.firstName %>
+    <% @lastName = customer.lastName %>
+    <% @phone = customer.phone %>
+    <% @addressLine1 = customer.addressLine1 %>
+    <% @addressLine2 = customer.addressLine2 %>
+    <% @city = customer.city %>
+    <% @state = customer.state %>
+    <% @postalcode = customer.postalcode %>
+    <% @email = customer.email %>
+    <% end %>
+<% end %>
+
 <%= form_for(@web_customer) do |f| %>
   <% if @web_customer.errors.any? %>
     <div id="error_explanation">
@@ -32,63 +48,61 @@
     width: 70%;
   }
   
-  #signupfornews{
-    padding-top: 50px;
-    width: 400px;
+  #lg_img{
+    width: 500px;
     height: auto;
+    padding: 25px;
   }
 </style>
 
 <div class="grid_6">
   <div id="customer_information">
+<h4 style="color:black"><strong>Shipping Information</strong></h4>
       <span id="label">First Name:</span> <br>
   	    <%= f.label :firstName, class: "hidden" %>
-        <%= f.text_field :firstName, :id => "field", :placeholder => "First Name" %><br>
+        <%= f.text_field :firstName, :id => "field", :value =>"#{@firstName}" %><br>
   	  <span id="label">Last Name:</span> <br>
         <%= f.label :lastName, class: "hidden"  %>
-        <%= f.text_field :lastName, :id => "field", :placeholder => "Last Name"  %><br>
+        <%= f.text_field :lastName, :id => "field", :value => "#{@lastName}"  %><br>
       <span id="label">Phone Number:</span><br>
         <%= f.label :phone, class: "hidden"  %>
-        <%= f.text_field :phone, :id => "field",  :placeholder => "Phone Number"  %><br>
+        <%= f.text_field :phone, :id => "field",  :value => "#{@phone}"  %><br>
       <span id="label">Address Line 1:</span><br>    
         <%= f.label :addressLine1, class: "hidden"  %>
-        <%= f.text_field :addressLine1, :id => "field", :placeholder => "Address 1"  %><br>
+        <%= f.text_field :addressLine1, :id => "field", :value => "#{@addressLine1}"  %><br>
   	  <span id="label">Address Line 2:</span> <br>
         <%= f.label :addressLine2, class: "hidden"  %>
-        <%= f.text_field :addressLine2, :id => "field", :placeholder => "Address 2"  %><br>
+        <%= f.text_field :addressLine2, :id => "field", :value => "#{@addressLine2}"  %><br>
       <span id="label">City:</span><br>
         <%= f.label :city, class: "hidden"  %>
-        <%= f.text_field :city, :id => "field", :placeholder => "City"  %><br>
+        <%= f.text_field :city, :id => "field", :value => "#{@city}"  %><br>
       <span id="label">State</span><br>
         <%= f.label :state, class: "hidden"  %>
-        <%= f.text_field :state, :id => "field", :placeholder => "State"  %><br>
+        <%= f.text_field :state, :id => "field", :value => "#{@state}"  %><br>
   	  <span id="label">Zip Code:</span><br>
         <%= f.label :postalcode, class: "hidden"  %>
-        <%= f.text_field :postalcode, :id => "field", :placeholder => "Zip"  %><br>
-  	  <span id="label">E-mail Address:</span><br>
+        <%= f.text_field :postalcode, :id => "field", :value => "#{@postalcode}"  %><br>
+  	  <span id="label">Email Address:</span><br>
         <%= f.label :email, class: "hidden"  %>
-        <%= f.text_field :email, :id => "field", :placeholder => "Email Address"  %><br>
+        <%= f.text_field :email, :id => "field", :value => "#{@email}" %><br>
         
-<% if user_signed_in? %>
-      <span id="label">Save Customer Information to Your Account?</span></br>
+        <% if user_signed_in? %>
+      <span id="label">Update Customer Information for Your Account?</span></br>
         <%= radio_button_tag(:user_ID, current_user.id) %>
         <%= label_tag(:user_ID_yes, "Yes") %>
         <%= radio_button_tag(:user_ID, "No", true) %>
         <%= label_tag(:user_ID_no, "No") %>
 <% end %>
-<br><br>
         
-      <span id="label">Would you like to receive our monthly newsletter?</span></br>
-        <%= radio_button_tag(:newsletter, "Yes", true) %>
-        <%= label_tag(:newsletter_yes, "Yes") %>
-        <%= radio_button_tag(:newsletter, "No") %>
-        <%= label_tag(:newsletter_no, "No") %>
+<br><br>
   	  <hr>
-  	  <span id="label">Pay with VISA or Mastercard</span><br>
+  	  <h4 style="color:black"><strong>Payment Information</strong></h4>
   	  <span id="label">VISA</span><br>
         <%= text_field :number, :id => "VISAnumber", :placeholder => "VISA Number"  %><br><br>
-  	  <span id="label">MASTERCARD</span><br>
-        <%= text_field :number, :id => "MCnumber", :placeholder => "Mastercard Number"  %><br><br><br><br><br>
+  	  <span id="label">Expiration Date</span><br>
+        <%= text_field :expDate, :id => "expDate", :placeholder => "Expiration Date"  %><br><br>
+  	  <span id="label">Security Code</span><br>
+        <%= text_field :sCode, :id => "securityCode", :placeholder => "Security "  %><br><br>
       <div class="actions">
         <%= f.submit "Submit Order"  %>
         <% end %>
@@ -96,6 +110,6 @@
   </div>
 </div>
 
-<div class="grid_6">
-  <img id="signupfornews" src="../signupforlgnews.png"><br><br>
+<div class="grid_6" id="imageelement">
+  <img id="lg_img" src="../LugnutsInProgress.png">
 </div>

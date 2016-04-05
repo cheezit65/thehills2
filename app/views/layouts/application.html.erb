@@ -43,7 +43,7 @@
             <span style="color:white; font-size:19px">Hello, <%= current_user.username %><br></span><br>
             <span style="position: relative; display:inline; margin-bottom:80pt !important">
             <%= link_to 'Log Out', destroy_user_session_path, :method => :get, :class => 'button'  %>
-            <%= link_to 'Edit Account', edit_user_registration_path, :method => :get, :class => 'button' %>
+            <%= link_to 'Your Account', edit_user_registration_path, :method => :get, :class => 'button' %>
             <div style="margin-bottom:20px;"></div>
 </span>
     <% else %>
@@ -67,24 +67,18 @@
     <span style="float:right"><%= button_to 'Register', new_user_registration_path, :method => :get, :class => 'button' %></span><br><br>
 <% end %>
 </div>
+
 <!-- shopping cart icon -->
 
 <div>
     <% if controller_name != 'sessions' && controller_name != 'registrations' && controller_name != 'passwords'  && controller_name != 'confirmations' %>
-        <% if @line_items.count == 0 %>
-        
-        <% end %>
         
 <!-- 3/24/2016 -- watch this code, could cause trouble -->
-        <% if !@carts.nil? %>
-        <% @carts.each do |cart| %>
-        <% cart.id %>
-        <% @cartid = cart.id %>
-<% end %><% end %>
     <% end %>
             </div>
 </div>
-<!-- end Shopping cart icon <span style="color:white; float:left; margin=top:0px"><%= notice %><%= alert %> <%= devise_error_messages! %> -->
+<!-- end Shopping cart icon <span style="color:white; float:left; margin=top:0px">
+ -->
 <!-- end Kim's section added on 3/14/2016 -->
 </div>
 
@@ -100,20 +94,30 @@
                 <li><%= link_to 'Blog', new_blog_path %></li>
                 <li><%= link_to 'About Us', about_Us_path %></li>
                 <li><%= link_to 'Contact Us', contact_Us_path %></li>
+                <% @lineCount = 0 %>
                 <% if controller_name != 'sessions' && controller_name != 'registrations' && controller_name != 'passwords'  && controller_name != 'confirmations' %>
-                <% if @line_items.count > 0 %>
-                <li><%= link_to "Cart (#{@line_items.count})", cart_path(@cartid) %></li>
-                <% else %>
-                <li><%= link_to "Cart (0)" %></li>
-                <% end %>
+                    <% @line_items.each do |item| %>
+                        <% if (item.cart_id).to_i == (session[:cart_id]).to_i %>
+                            <% @lineCount = @lineCount + 1 %>
+                        <% end %>
+                            <% end %>
+                        <% if @lineCount > 0 %>                            
+                            <li><%= link_to "Cart (#{@lineCount})", cart_path(session[:cart_id]) %></li>
+                            <% else %>
+                            <li><%= link_to "Cart (0)" %></li>
+                    <% end %>
                 <% end %>
             </ul>
         </div>
+
+            <span style="margin-left:500px"><%= notice %><%= alert %> <%= devise_error_messages! %></span>
     </div>
     
     <!-- Main Container  -->
+    <span class="mobileHide">
     <div class="container_12" style="background-color:white; padding-bottom:100px">
         <%= yield %>
     </div>
+    </span>
 </body>
 </html>

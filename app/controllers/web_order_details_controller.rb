@@ -24,8 +24,7 @@ class WebOrderDetailsController < ApplicationController
   # POST /web_order_details
   # POST /web_order_details.json
   def create
-    @web_order_detail = WebOrderDetail.new(web_order_detail_params)
-
+    @web_order_detail = WebOrderDetail.new(@line_item)
     respond_to do |format|
       if @web_order_detail.save
         format.html { redirect_to @web_order_detail, notice: 'Web order detail was successfully created.' }
@@ -35,6 +34,7 @@ class WebOrderDetailsController < ApplicationController
         format.json { render json: @web_order_detail.errors, status: :unprocessable_entity }
       end
     end
+  end
   end
 
   # PATCH/PUT /web_order_details/1
@@ -64,7 +64,6 @@ class WebOrderDetailsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_web_order_detail
-      @line_item = LineItem.find(params[:id])
       @web_order_detail = WebOrderDetail.(@line_item)
     end
 
@@ -72,4 +71,3 @@ class WebOrderDetailsController < ApplicationController
     def web_order_detail_params
      params.require(:product_id, :quantity, ).permit()
     end
-end

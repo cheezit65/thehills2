@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+ include SessionsHelper
+ 
+  # Customize the Devise after_sign_in_path_for() for redirecct to previous page after login
 
   protected
   def configure_permitted_parameters
@@ -11,11 +14,19 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
   end
   # If your model is called User
+
 def after_sign_in_path_for(resource)
-  session["user_return_to"] || root_path
+  sign_in_url = url_for(:action => 'sessions', :controller => 'users', :only_path => false, :protocol => 'http')  
+  if (request.referer == sign_in_url)
+    super
+  else
+    request.referer
+  end
 end
 
-  def index
+
+
+def index
    @cart = current_cart
     @line_items = LineItem.all
   end

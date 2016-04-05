@@ -10,8 +10,8 @@ def order_confirmation(web_customer, orderNum, web_order_details)
         @greeting = "Thank you"
         mail to: web_customer.email, subject: "Thank you for placing your order with Lugnuts Automotive"
     end
-    def order_fulfillment(web_customer, orderNum, web_order_details)
-        @web_customer = web_customer
+    def order_fulfillment(web_customer, orderNum, web_order_details, creditcardinfo)
+    @web_customer = web_customer
         @orderNum = orderNum
         @web_order_details = web_order_details
         @products = Product.all
